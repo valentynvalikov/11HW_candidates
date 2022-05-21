@@ -1,0 +1,13 @@
+.container {
+    width: 800px;
+    margin: 0 auto;
+    padding-left: 50px;
+}
+
+article p {
+    font-family: Calibri, Arial;
+}
+
+.back_color--light-green {
+    background-color: #fecb03;
+}

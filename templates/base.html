@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" id="html-content-holder">
+<head>
+    <title>Candidates</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" media="all" href="/static/css/bootstrap.css" />
+</head>
+<body>
+<div class="container">
+    {% block header %}
+        <header class="col-lg-8 mx-auto mb-3">
+            <nav class="navbar bg-dark navbar-dark navbar-expand-md">
+                <div class="container">
+                    <a class="navbar-brand my-3 ms-2 text-" href="/">Candidates</a>
+                    <a class="navbar-brand my-3 ms-2" href="/resume/">Resume</a>
+                    <div class="ms-auto d-flex flex-row">
+                        <form action='/search/' method='get' class="form-inline my-2 d-flex flex-row">
+                            <input name="skill" class="form-control me-1" type="text" placeholder="Search Skill">
+                            <input class="btn btn-secondary text-white" type="submit" value=" >>> ">
+                        </form>
+                        <form action='/search/' method='get' class="form-inline my-2 ms-2 d-flex flex-row">
+                            <input name="name" class="form-control me-1" type="text" placeholder="Search Candidate">
+                            <input class="btn btn-secondary text-white" type="submit" value=" >>> ">
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    {% endblock %}
+
+    {% block content %}
+        <div class="col-lg-8 mx-auto mb-3 text-center">
+            {% if not candidates %}
+                <div class="card card-body bg-light my-2">
+                    <h2>No such candidates</h2>
+                </div>
+            {% else %}
+                {% if message %}
+                    <div class="card card-body bg-light my-2">
+                        <h2>{{ message }}</h2>
+                    </div>
+                {% endif %}
+                {% for candidate in candidates %}
+                    <div class="card card-body bg-light my-2 d-flex flex-row">
+                        <img src="{{ candidate['picture'] }}" class="col-3" alt="Candidate photo" width="200px" height="200px" />
+                        <div class="d-flex flex-column col-9 text-center">
+                            <h2 class="mb-3">
+                                <a class="text-black-50" href="/candidate/{{ candidate['name'].lower().replace(' ', '_') }}/">{{ candidate['name'] }}</a>
+                            </h2>
+                            <p>Position - {{ candidate['position'] }}</p>
+                            <p class="text-wrap">Skills - {{ candidate['skills'] }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    {% endblock %}
+
+    <footer class="col-lg-8 mx-auto bg-dark mt-2 mb-0 py-2 text-center text-white">
+        &copy; 2022 <a class="text-white" href="/">Candidates</a>
+    </footer>
+</div>
+</body>
+</html>
